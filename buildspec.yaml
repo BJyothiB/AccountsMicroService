@@ -3,8 +3,11 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Running Gradle build...
-      - ./gradlew clean build
+      - echo Logging into Docker Hub...
+      - DOCKER_PASSWORD=sujith2009
+      - DOCKER_USERNAME=jyothi06
+      - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+
       - echo Granting execution permissions to Gradle wrapper...
         - chmod +x ./gradlew
         - echo Cleaning up previous builds...
@@ -17,6 +20,8 @@ phases:
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
+      -echo Building the application with Gradle...
+      - ./gradlew build
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
