@@ -3,15 +3,8 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging into Docker Hub...
-      - DOCKER_PASSWORD=sujith2009
-      - DOCKER_USERNAME=jyothi06
-      - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-
-      - echo Granting execution permissions to Gradle wrapper...
-        - chmod +x ./gradlew
-        - echo Cleaning up previous builds...
-        - ./gradlew clean
+      - echo Running Gradle build...
+      - ./gradlew build .
       - echo Logging in to Amazon ECR...
       - aws --version
       - REPOSITORY_URI=615299733509.dkr.ecr.us-west-1.amazonaws.com/tekarch/boarepo
@@ -20,8 +13,6 @@ phases:
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
-      -echo Building the application with Gradle...
-      - ./gradlew build
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
@@ -33,7 +24,7 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"accountsms-project","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"course-service","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - echo Writing image definitions file...
       # add your container name
       - DOCKER_CONTAINER_NAME=tekarch/boarepo
@@ -45,8 +36,3 @@ phases:
 artifacts:
   files:
     - imagedefinitions.json
-    - build/libs/*.jar
-      
-      
-      
-      **********************
