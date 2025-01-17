@@ -40,7 +40,7 @@ phases:
       - echo Build process completed successfully.
       - echo printing imagedefinitions.json
       - cat imagedefinitions.json
-      - artifacts:
-      - files:
-      - imagedefinitions.json
-      - build/libs/*.jar
+  artifacts:
+  files:
+    - imagedefinitions.json
+    - build/libs/*.jar
