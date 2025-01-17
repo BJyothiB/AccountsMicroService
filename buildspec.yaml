@@ -41,6 +41,7 @@ phases:
       - echo printing imagedefinitions.json
       - cat imagedefinitions.json
   artifacts:
-  files:
-    - imagedefinitions.json
-    - build/libs/*.jar
+    files:
+      - build/libs/*.jar
+      - imagedefinitions.json
+    discard-paths: yes
