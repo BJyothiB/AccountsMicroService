@@ -39,4 +39,8 @@ phases:
       - printf '[{"name":"%s","imageUri":"%s"}]' $DOCKER_CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - echo Build process completed successfully.
 
-
+  artifacts:
+    files:
+      - build/libs/*.jar
+      - imagedefinitions.json
+    discard-paths: yes
