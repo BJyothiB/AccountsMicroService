@@ -3,8 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Running Gradle build...
-      - ./gradlew clean build
+
       - echo Logging in to Amazon ECR...
       - aws --version
       - REPOSITORY_URI=615299733509.dkr.ecr.us-west-1.amazonaws.com/tekarch/boarepo
@@ -17,6 +16,8 @@ phases:
       - ./gradlew clean
   build:
     commands:
+      - echo Running Gradle build...
+      - ./gradlew clean build
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
