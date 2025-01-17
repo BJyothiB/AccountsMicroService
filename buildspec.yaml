@@ -43,4 +43,4 @@ phases:
     files:
       - build/libs/*.jar
       - imagedefinitions.json
-    discard-paths: yes
+
