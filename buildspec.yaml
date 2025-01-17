@@ -37,4 +37,3 @@ artifacts:
   files:
     - imagedefinitions.json
     - build/libs/*.jar
-    - discard-paths: yes
